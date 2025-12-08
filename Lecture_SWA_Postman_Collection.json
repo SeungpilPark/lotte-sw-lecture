@@ -1,0 +1,1505 @@
+{
+	"info": {
+		"_postman_id": "lecture-swa-collection",
+		"name": "Lecture SWA - Performance & Caching",
+		"description": "2일차 5, 6, 7, 8교시 실습용 Postman Collection\n- Day 2 Class 5: 성능 최적화\n- Day 2 Class 6: 캐싱 구현\n- Day 2 Class 7: 캐싱 패턴\n- Day 2 Class 8: 성능 측정 및 최적화",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Day 2 Class 5 - Performance Optimization",
+			"item": [
+				{
+					"name": "day2_class5_bottleneck_string_concat",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/performance/bottleneck/string-concat?count=1000",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"performance",
+								"bottleneck",
+								"string-concat"
+							],
+							"query": [
+								{
+									"key": "count",
+									"value": "1000"
+								}
+							]
+						},
+						"description": "실습 1: 성능 병목 코드 테스트 - String Concatenation"
+					}
+				},
+				{
+					"name": "day2_class5_n_plus_one",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/performance/n-plus-one",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"performance",
+								"n-plus-one"
+							]
+						},
+						"description": "실습 2: N+1 문제 테스트"
+					}
+				},
+				{
+					"name": "day2_class5_async",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/performance/async?userId=user123",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"performance",
+								"async"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "user123"
+								}
+							]
+						},
+						"description": "실습 3: 비동기 처리 테스트"
+					}
+				},
+				{
+					"name": "day2_class5_parallel",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/api/performance/parallel?fileCount=100",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"api",
+								"performance",
+								"parallel"
+							],
+							"query": [
+								{
+									"key": "fileCount",
+									"value": "100"
+								}
+							]
+						},
+						"description": "실습 4: 병렬 처리 테스트"
+					}
+				},
+				{
+					"name": "day2_class5_actuator_health",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/actuator/health",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"actuator",
+								"health"
+							]
+						},
+						"description": "실습 5: Spring Actuator Health Check"
+					}
+				},
+				{
+					"name": "day2_class5_actuator_metrics",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/actuator/metrics",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"actuator",
+								"metrics"
+							]
+						},
+						"description": "실습 5: Spring Actuator Metrics"
+					}
+				},
+				{
+					"name": "day2_class5_actuator_prometheus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/actuator/prometheus",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"actuator",
+								"prometheus"
+							]
+						},
+						"description": "실습 5: Spring Actuator Prometheus"
+					}
+				}
+			]
+		},
+		{
+			"name": "Day 2 Class 6 - Cache Implementation",
+			"item": [
+				{
+					"name": "Basic CRUD APIs",
+					"item": [
+						{
+							"name": "day2_class6_get_product",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "제품 조회 (캐시 사용)"
+							}
+						},
+						{
+							"name": "day2_class6_get_product_no_cache",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/products/{{productId}}/no-cache",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"products",
+										"{{productId}}",
+										"no-cache"
+									]
+								},
+								"description": "제품 조회 (캐시 없이) - 성능 비교용"
+							}
+						},
+						{
+							"name": "day2_class6_get_products_by_category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/products/category/{{categoryId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"products",
+										"category",
+										"{{categoryId}}"
+									]
+								},
+								"description": "카테고리별 제품 조회"
+							}
+						},
+						{
+							"name": "day2_class6_get_user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/users/{{userId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"users",
+										"{{userId}}"
+									]
+								},
+								"description": "사용자 조회"
+							}
+						},
+						{
+							"name": "day2_class6_get_order",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/orders/{{orderId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"orders",
+										"{{orderId}}"
+									]
+								},
+								"description": "주문 조회"
+							}
+						}
+					]
+				},
+				{
+					"name": "Performance Measurement APIs",
+					"item": [
+						{
+							"name": "day2_class6_performance_without_cache",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/without-cache/{{productId}}?iterations=100",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"without-cache",
+										"{{productId}}"
+									],
+									"query": [
+										{
+											"key": "iterations",
+											"value": "100"
+										}
+									]
+								},
+								"description": "캐시 없이 성능 측정"
+							}
+						},
+						{
+							"name": "day2_class6_performance_with_cache",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/with-cache/{{productId}}?iterations=100",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"with-cache",
+										"{{productId}}"
+									],
+									"query": [
+										{
+											"key": "iterations",
+											"value": "100"
+										}
+									]
+								},
+								"description": "캐시 사용 성능 측정"
+							}
+						},
+						{
+							"name": "day2_class6_performance_concurrent",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/concurrent/{{productId}}?concurrentRequests=50",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"concurrent",
+										"{{productId}}"
+									],
+									"query": [
+										{
+											"key": "concurrentRequests",
+											"value": "50"
+										}
+									]
+								},
+								"description": "동시성 테스트"
+							}
+						},
+						{
+							"name": "day2_class6_performance_compare",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/compare/{{productId}}?iterations=100",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"compare",
+										"{{productId}}"
+									],
+									"query": [
+										{
+											"key": "iterations",
+											"value": "100"
+										}
+									]
+								},
+								"description": "성능 비교 (캐시 사용 전후)"
+							}
+						}
+					]
+				},
+				{
+					"name": "Cache Metrics APIs",
+					"item": [
+						{
+							"name": "day2_class6_get_all_metrics",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/metrics",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"metrics"
+									]
+								},
+								"description": "모든 캐시 메트릭 조회"
+							}
+						},
+						{
+							"name": "day2_class6_get_cache_metrics",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/metrics/{{cacheName}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"metrics",
+										"{{cacheName}}"
+									]
+								},
+								"description": "특정 캐시 메트릭 조회"
+							}
+						},
+						{
+							"name": "day2_class6_reset_metrics",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/metrics/reset",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"metrics",
+										"reset"
+									]
+								},
+								"description": "캐시 메트릭 초기화"
+							}
+						}
+					]
+				},
+				{
+					"name": "Cache Management APIs",
+					"item": [
+						{
+							"name": "day2_class6_evict_products_cache",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/products/cache/evict",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"products",
+										"cache",
+										"evict"
+									]
+								},
+								"description": "제품 캐시 무효화"
+							}
+						},
+						{
+							"name": "day2_class6_evict_categories_cache",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/categories/cache/evict",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"categories",
+										"cache",
+										"evict"
+									]
+								},
+								"description": "카테고리 캐시 무효화"
+							}
+						},
+						{
+							"name": "day2_class6_evict_users_cache",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/users/cache/evict",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"users",
+										"cache",
+										"evict"
+									]
+								},
+								"description": "사용자 캐시 무효화"
+							}
+						},
+						{
+							"name": "day2_class6_evict_orders_cache",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/orders/cache/evict",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"orders",
+										"cache",
+										"evict"
+									]
+								},
+								"description": "주문 캐시 무효화"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Day 2 Class 7 - Cache Patterns",
+			"item": [
+				{
+					"name": "Cache-Aside Pattern",
+					"item": [
+						{
+							"name": "day2_class7_cache_aside_get_product",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/cache-aside/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"cache-aside",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "Cache-Aside: 제품 조회"
+							}
+						},
+						{
+							"name": "day2_class7_cache_aside_update_product",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"업데이트된 제품명\",\n  \"price\": 15000.0,\n  \"description\": \"업데이트된 설명\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/cache-aside/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"cache-aside",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "Cache-Aside: 제품 업데이트"
+							}
+						},
+						{
+							"name": "day2_class7_cache_aside_clear_cache",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/cache-aside/cache/clear",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"cache-aside",
+										"cache",
+										"clear"
+									]
+								},
+								"description": "Cache-Aside: 캐시 초기화"
+							}
+						}
+					]
+				},
+				{
+					"name": "Write-Through Pattern",
+					"item": [
+						{
+							"name": "day2_class7_write_through_get_product",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/write-through/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"write-through",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "Write-Through: 제품 조회"
+							}
+						},
+						{
+							"name": "day2_class7_write_through_create_product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"새 제품\",\n  \"price\": 10000.0,\n  \"description\": \"제품 설명\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/write-through/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"write-through",
+										"products"
+									]
+								},
+								"description": "Write-Through: 제품 생성"
+							}
+						},
+						{
+							"name": "day2_class7_write_through_update_product",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"업데이트된 제품명\",\n  \"price\": 15000.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/write-through/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"write-through",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "Write-Through: 제품 업데이트"
+							}
+						},
+						{
+							"name": "day2_class7_write_through_clear_cache",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/write-through/cache/clear",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"write-through",
+										"cache",
+										"clear"
+									]
+								},
+								"description": "Write-Through: 캐시 초기화"
+							}
+						}
+					]
+				},
+				{
+					"name": "Write-Back Pattern",
+					"item": [
+						{
+							"name": "day2_class7_write_back_get_product",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/write-back/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"write-back",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "Write-Back: 제품 조회"
+							}
+						},
+						{
+							"name": "day2_class7_write_back_create_product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"새 제품\",\n  \"price\": 10000.0,\n  \"description\": \"제품 설명\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/write-back/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"write-back",
+										"products"
+									]
+								},
+								"description": "Write-Back: 제품 생성"
+							}
+						},
+						{
+							"name": "day2_class7_write_back_update_product",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"업데이트된 제품명\",\n  \"price\": 15000.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/write-back/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"write-back",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "Write-Back: 제품 업데이트"
+							}
+						},
+						{
+							"name": "day2_class7_write_back_flush",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/write-back/flush",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"write-back",
+										"flush"
+									]
+								},
+								"description": "Write-Back: Dirty 데이터 수동 Flush"
+							}
+						},
+						{
+							"name": "day2_class7_write_back_dirty_count",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/write-back/dirty-count",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"write-back",
+										"dirty-count"
+									]
+								},
+								"description": "Write-Back: Dirty 데이터 개수 조회"
+							}
+						},
+						{
+							"name": "day2_class7_write_back_clear_cache",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/write-back/cache/clear",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"write-back",
+										"cache",
+										"clear"
+									]
+								},
+								"description": "Write-Back: 캐시 초기화"
+							}
+						}
+					]
+				},
+				{
+					"name": "Refresh-Ahead Pattern",
+					"item": [
+						{
+							"name": "day2_class7_refresh_ahead_get_product",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/refresh-ahead/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"refresh-ahead",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "Refresh-Ahead: 제품 조회"
+							}
+						},
+						{
+							"name": "day2_class7_refresh_ahead_update_product",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"업데이트된 제품명\",\n  \"price\": 15000.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/refresh-ahead/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"refresh-ahead",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "Refresh-Ahead: 제품 업데이트"
+							}
+						},
+						{
+							"name": "day2_class7_refresh_ahead_clear_cache",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/refresh-ahead/cache/clear",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"refresh-ahead",
+										"cache",
+										"clear"
+									]
+								},
+								"description": "Refresh-Ahead: 캐시 초기화"
+							}
+						}
+					]
+				},
+				{
+					"name": "Cache Optimization",
+					"item": [
+						{
+							"name": "day2_class7_optimization_warmup",
+							"request": {
+								"method": "POST",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/optimization/warmup",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"optimization",
+										"warmup"
+									]
+								},
+								"description": "캐시 워밍업"
+							}
+						},
+						{
+							"name": "day2_class7_optimization_preload",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "[1, 2, 3, 4, 5]",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/optimization/preload",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"optimization",
+										"preload"
+									]
+								},
+								"description": "제품 사전 로드"
+							}
+						},
+						{
+							"name": "day2_class7_optimization_statistics",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/optimization/statistics",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"optimization",
+										"statistics"
+									]
+								},
+								"description": "캐시 통계 조회"
+							}
+						},
+						{
+							"name": "day2_class7_optimization_hit_rate",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/optimization/hit-rate",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"optimization",
+										"hit-rate"
+									]
+								},
+								"description": "캐시 히트율 조회"
+							}
+						},
+						{
+							"name": "day2_class7_optimization_recommendations",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/optimization/recommendations",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"optimization",
+										"recommendations"
+									]
+								},
+								"description": "최적화 권장사항 조회"
+							}
+						}
+					]
+				},
+				{
+					"name": "Pattern Comparison",
+					"item": [
+						{
+							"name": "day2_class7_compare_patterns",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/patterns/compare/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"patterns",
+										"compare",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "모든 패턴으로 제품 조회 (비교용)"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Day 2 Class 8 - Performance Analysis & Optimization",
+			"item": [
+				{
+					"name": "Performance Analysis APIs",
+					"item": [
+						{
+							"name": "day2_class8_analysis_compare",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/analysis/compare/{{productId}}?iterations=100",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"analysis",
+										"compare",
+										"{{productId}}"
+									],
+									"query": [
+										{
+											"key": "iterations",
+											"value": "100"
+										}
+									]
+								},
+								"description": "캐싱 전후 성능 비교"
+							}
+						},
+						{
+							"name": "day2_class8_analysis_concurrent",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/analysis/concurrent/{{productId}}?concurrentRequests=50",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"analysis",
+										"concurrent",
+										"{{productId}}"
+									],
+									"query": [
+										{
+											"key": "concurrentRequests",
+											"value": "50"
+										}
+									]
+								},
+								"description": "동시성 성능 테스트"
+							}
+						},
+						{
+							"name": "day2_class8_analysis_bottleneck",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/analysis/bottleneck/{{productId}}?iterations=50",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"analysis",
+										"bottleneck",
+										"{{productId}}"
+									],
+									"query": [
+										{
+											"key": "iterations",
+											"value": "50"
+										}
+									]
+								},
+								"description": "병목 지점 분석"
+							}
+						}
+					]
+				},
+				{
+					"name": "Performance Metrics APIs",
+					"item": [
+						{
+							"name": "day2_class8_metrics_system",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/analysis/metrics/system",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"analysis",
+										"metrics",
+										"system"
+									]
+								},
+								"description": "전체 시스템 메트릭 조회"
+							}
+						},
+						{
+							"name": "day2_class8_metrics_cache_all",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/analysis/metrics/cache",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"analysis",
+										"metrics",
+										"cache"
+									]
+								},
+								"description": "모든 캐시 메트릭 조회"
+							}
+						},
+						{
+							"name": "day2_class8_metrics_cache_specific",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/analysis/metrics/cache/{{cacheName}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"analysis",
+										"metrics",
+										"cache",
+										"{{cacheName}}"
+									]
+								},
+								"description": "특정 캐시 메트릭 조회"
+							}
+						},
+						{
+							"name": "day2_class8_metrics_memory",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/analysis/metrics/memory",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"analysis",
+										"metrics",
+										"memory"
+									]
+								},
+								"description": "메모리 메트릭 조회"
+							}
+						}
+					]
+				},
+				{
+					"name": "Optimization Report APIs",
+					"item": [
+						{
+							"name": "day2_class8_report_generate",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/cache/performance/analysis/report/{{productId}}?iterations=100",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"cache",
+										"performance",
+										"analysis",
+										"report",
+										"{{productId}}"
+									],
+									"query": [
+										{
+											"key": "iterations",
+											"value": "100"
+										}
+									]
+								},
+								"description": "최적화 리포트 생성"
+							}
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "productId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "orderId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "categoryId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "cacheName",
+			"value": "products",
+			"type": "string"
+		}
+	]
+}
+
