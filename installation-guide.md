@@ -51,7 +51,7 @@ javac -version
 
 ---
 
-### 3. 빌드 도구 - Gradle 7.6
+### 3. 빌드 도구 - Gradle 9.0
 
 **다운로드 URL:**
 - **Gradle 공식 사이트**: https://gradle.org/install/
@@ -169,30 +169,6 @@ dependencies {
 
 ### 3단계: 테스트 도구
 8. Postman 설치
-
----
-
-## 환경 변수 설정
-
-### Windows 11
-```powershell
-# PowerShell 관리자 권한으로 실행
-
-# JAVA_HOME 설정 (JDK 21 설치 경로에 맞게 수정)
-setx JAVA_HOME "C:\Program Files\Java\jdk-21" /M
-setx PATH "%PATH%;%JAVA_HOME%\bin" /M
-
-# Gradle 설정 (별도 설치한 경우, 설치 경로에 맞게 수정)
-setx GRADLE_HOME "C:\Program Files\Gradle\gradle-7.6" /M
-setx PATH "%PATH%;%GRADLE_HOME%\bin" /M
-
-# Redis PATH 설정 (redis-cli 명령어 사용을 위해)
-setx PATH "%PATH%;C:\Program Files\Redis" /M
-
-# 변경사항 적용을 위해 새 PowerShell 창 열기
-```
-
-**참고:** Windows 11에서는 시스템 환경 변수를 설정하려면 관리자 권한이 필요합니다. `/M` 옵션은 시스템 전체 환경 변수를 설정합니다.
 
 ---
 

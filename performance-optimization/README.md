@@ -53,11 +53,11 @@
 ## 사전 요구사항
 
 - **Java 21 이상** (현재 시스템: Java 21)
-- **Gradle 7.6** (프로젝트에 Gradle Wrapper가 포함되어 있어 별도 설치 불필요)
+- **Gradle 9.0** (프로젝트에 Gradle Wrapper가 포함되어 있어 별도 설치 불필요)
 
 ## Gradle Wrapper 설정
 
-이 프로젝트는 **Gradle 7.6 Wrapper**가 포함되어 있어 별도의 Gradle 설치 없이 바로 사용할 수 있습니다.
+이 프로젝트는 **Gradle 9.0 Wrapper**가 포함되어 있어 별도의 Gradle 설치 없이 바로 사용할 수 있습니다.
 
 ### Gradle Wrapper 확인
 
@@ -66,7 +66,7 @@ cd performance-optimization
 ./gradlew --version
 ```
 
-첫 실행 시 Gradle 7.6이 자동으로 다운로드됩니다.
+첫 실행 시 Gradle 9.0이 자동으로 다운로드됩니다.
 
 ## 프로젝트 구조
 

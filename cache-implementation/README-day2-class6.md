@@ -36,7 +36,7 @@
 ## 사전 요구사항
 
 - **Java 21 이상**
-- **Gradle 7.6** (프로젝트에 Gradle Wrapper가 포함되어 있어 별도 설치 불필요)
+- **Gradle 9.0** (프로젝트에 Gradle Wrapper가 포함되어 있어 별도 설치 불필요)
 - **Redis** (선택사항 - Redis가 없어도 로컬 캐시로 동작)
 
 ## Redis 설치 (선택사항)
@@ -47,7 +47,7 @@
 
 ## Gradle Wrapper 설정
 
-이 프로젝트는 **Gradle 8.5 Wrapper**가 포함되어 있어 별도의 Gradle 설치 없이 바로 사용할 수 있습니다.
+이 프로젝트는 **Gradle 9.0 Wrapper**가 포함되어 있어 별도의 Gradle 설치 없이 바로 사용할 수 있습니다.
 
 ### Gradle Wrapper 확인
 
@@ -339,7 +339,7 @@ POST http://localhost:8080/api/cache/orders/cache/evict
 
 ## 주요 의존성
 
-- **Gradle 7.6** (Gradle Wrapper 포함)
+- **Gradle 9.0** (Gradle Wrapper 포함)
 - **Java 21**
 - **Spring Boot 3.2.0**
 - Spring Data JPA
