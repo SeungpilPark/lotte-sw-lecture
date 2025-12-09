@@ -8,7 +8,7 @@
 
 ## 필수 설치 프로그램
 
-### 1. JDK 21 - Java 개발 환경
+### 1. JDK 17 - Java 개발 환경
 
 **다운로드 URL:**
 - **Oracle JDK (권장)**: https://www.oracle.com/kr/java/technologies/downloads/
@@ -16,7 +16,7 @@
 - **Amazon Corretto**: https://aws.amazon.com/corretto/
 
 **Windows 11 설치 방법:**
-1. Oracle JDK 21 다운로드 (Windows x64 Installer)
+1. Oracle JDK 17 다운로드 (Windows x64 Installer)
 2. 설치 프로그램 실행 및 기본 설정으로 설치
 3. 환경 변수 자동 설정 확인
 
@@ -51,7 +51,7 @@ javac -version
 
 ---
 
-### 3. 빌드 도구 - Gradle 9.0
+### 3. 빌드 도구 - Gradle 8.5
 
 **다운로드 URL:**
 - **Gradle 공식 사이트**: https://gradle.org/install/
@@ -157,7 +157,7 @@ dependencies {
 ## 설치 순서 권장사항
 
 ### 1단계: 기본 개발 환경
-1. JDK 21 설치 및 환경 변수 설정
+1. JDK 17 설치 및 환경 변수 설정
 2. VS Code 설치 및 필수 확장 프로그램 설치
 3. Git 설치 및 설정
 4. Gradle 설치 (또는 IDE에서 자동 설치)
@@ -203,8 +203,7 @@ code --version
 
 ### Java 버전 문제
 - 여러 JDK 버전이 설치된 경우, `JAVA_HOME` 환경 변수를 확인하세요.
-- VS Code에서 Java 버전 확인: `Ctrl+Shift+P` → "Java: Configure Java Runtime" 선택
-- 프로젝트에서 사용할 JDK 버전을 21로 설정하세요.
+- 프로젝트에서 사용할 JDK 버전을 17로 설정하세요.
 
 ### Redis 연결 실패
 - Redis 서버가 실행 중인지 확인:
@@ -237,7 +236,7 @@ code --version
 ## 실습별 필수 도구 요약
 
 ### 1일차: 소프트웨어와 아키텍처 개론
-- ✅ JDK 21
+- ✅ JDK 17 이상
 - ✅ VS Code
 - ✅ Git
 - ✅ Gradle

@@ -1,0 +1,1123 @@
+{
+	"info": {
+		"_postman_id": "lecture-swa-day3-collection",
+		"name": "Lecture SWA - RESTful API, GraphQL",
+		"description": "3일차 6, 7교시 실습용 Postman Collection\n- Day 3 Class 6: RESTful API 구현\n- Day 3 Class 7: GraphQL 구현",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Day 3 Class 6 - RESTful API",
+			"item": [
+				{
+					"name": "Products API",
+					"item": [
+						{
+							"name": "day3_class6_get_product",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "제품 단일 조회"
+							}
+						},
+						{
+							"name": "day3_class6_get_products_list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/products?page=0&size=10&sort=name,asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"products"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0",
+											"description": "페이지 번호 (기본값: 0)"
+										},
+										{
+											"key": "size",
+											"value": "10",
+											"description": "페이지 크기 (기본값: 10)"
+										},
+										{
+											"key": "sort",
+											"value": "name,asc",
+											"description": "정렬 필드 및 방향 (예: name,asc, price,desc)"
+										},
+										{
+											"key": "name",
+											"value": "",
+											"description": "제품명 검색 (부분 일치)",
+											"disabled": true
+										},
+										{
+											"key": "categoryId",
+											"value": "",
+											"description": "카테고리 ID로 필터링",
+											"disabled": true
+										},
+										{
+											"key": "minPrice",
+											"value": "",
+											"description": "최소 가격",
+											"disabled": true
+										},
+										{
+											"key": "maxPrice",
+											"value": "",
+											"description": "최대 가격",
+											"disabled": true
+										}
+									]
+								},
+								"description": "제품 목록 조회 (페이징, 정렬, 필터링)"
+							}
+						},
+						{
+							"name": "day3_class6_get_products_by_category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/products/category/{{categoryId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"products",
+										"category",
+										"{{categoryId}}"
+									]
+								},
+								"description": "카테고리별 제품 조회"
+							}
+						},
+						{
+							"name": "day3_class6_get_products_by_price_range",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/products/price-range?minPrice=10000&maxPrice=100000",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"products",
+										"price-range"
+									],
+									"query": [
+										{
+											"key": "minPrice",
+											"value": "10000"
+										},
+										{
+											"key": "maxPrice",
+											"value": "100000"
+										}
+									]
+								},
+								"description": "가격 범위별 제품 조회"
+							}
+						},
+						{
+							"name": "day3_class6_create_product",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"새 제품\",\n  \"price\": 50000.0,\n  \"categoryId\": 1,\n  \"description\": \"제품 설명\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"products"
+									]
+								},
+								"description": "제품 생성 (응답: 201 Created)"
+							}
+						},
+						{
+							"name": "day3_class6_update_product_put",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"수정된 제품명\",\n  \"price\": 60000.0,\n  \"categoryId\": 1,\n  \"description\": \"수정된 설명\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "제품 수정 (전체 수정 - PUT)"
+							}
+						},
+						{
+							"name": "day3_class6_update_product_patch",
+							"request": {
+								"method": "PATCH",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"price\": 55000.0\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "제품 부분 수정 (PATCH)"
+							}
+						},
+						{
+							"name": "day3_class6_delete_product",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/products/{{productId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"products",
+										"{{productId}}"
+									]
+								},
+								"description": "제품 삭제 (응답: 204 No Content)"
+							}
+						}
+					]
+				},
+				{
+					"name": "Users API",
+					"item": [
+						{
+							"name": "day3_class6_get_user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/users/{{userId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"{{userId}}"
+									]
+								},
+								"description": "사용자 단일 조회"
+							}
+						},
+						{
+							"name": "day3_class6_get_user_by_username",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/users/username/{{username}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"username",
+										"{{username}}"
+									]
+								},
+								"description": "사용자명으로 조회"
+							}
+						},
+						{
+							"name": "day3_class6_get_users_list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/users?page=0&size=10&sort=name,asc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "name,asc"
+										}
+									]
+								},
+								"description": "사용자 목록 조회 (페이징, 정렬)"
+							}
+						},
+						{
+							"name": "day3_class6_create_user",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"newuser\",\n  \"email\": \"newuser@example.com\",\n  \"name\": \"신규 사용자\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users"
+									]
+								},
+								"description": "사용자 생성"
+							}
+						},
+						{
+							"name": "day3_class6_update_user",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"updateduser\",\n  \"email\": \"updated@example.com\",\n  \"name\": \"수정된 사용자\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users/{{userId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"{{userId}}"
+									]
+								},
+								"description": "사용자 수정"
+							}
+						},
+						{
+							"name": "day3_class6_delete_user",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/users/{{userId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users",
+										"{{userId}}"
+									]
+								},
+								"description": "사용자 삭제"
+							}
+						}
+					]
+				},
+				{
+					"name": "Orders API",
+					"item": [
+						{
+							"name": "day3_class6_get_order",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/orders/{{orderId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"orders",
+										"{{orderId}}"
+									]
+								},
+								"description": "주문 단일 조회"
+							}
+						},
+						{
+							"name": "day3_class6_get_order_by_number",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/orders/number/{{orderNumber}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"orders",
+										"number",
+										"{{orderNumber}}"
+									]
+								},
+								"description": "주문번호로 조회"
+							}
+						},
+						{
+							"name": "day3_class6_get_orders_list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/orders?page=0&size=10&sort=orderDate,desc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"orders"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "orderDate,desc"
+										}
+									]
+								},
+								"description": "주문 목록 조회 (페이징, 정렬)"
+							}
+						},
+						{
+							"name": "day3_class6_get_orders_by_user",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/orders/user/{{userId}}?page=0&size=10&sort=orderDate,desc",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"orders",
+										"user",
+										"{{userId}}"
+									],
+									"query": [
+										{
+											"key": "page",
+											"value": "0"
+										},
+										{
+											"key": "size",
+											"value": "10"
+										},
+										{
+											"key": "sort",
+											"value": "orderDate,desc"
+										}
+									]
+								},
+								"description": "사용자별 주문 목록 조회"
+							}
+						}
+					]
+				},
+				{
+					"name": "Categories API",
+					"item": [
+						{
+							"name": "day3_class6_get_category",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/categories/{{categoryId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"categories",
+										"{{categoryId}}"
+									]
+								},
+								"description": "카테고리 단일 조회"
+							}
+						},
+						{
+							"name": "day3_class6_get_categories_list",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"categories"
+									]
+								},
+								"description": "카테고리 목록 조회"
+							}
+						},
+						{
+							"name": "day3_class6_create_category",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"새 카테고리\",\n  \"description\": \"카테고리 설명\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/categories",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"categories"
+									]
+								},
+								"description": "카테고리 생성"
+							}
+						},
+						{
+							"name": "day3_class6_update_category",
+							"request": {
+								"method": "PUT",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"수정된 카테고리\",\n  \"description\": \"수정된 설명\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/categories/{{categoryId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"categories",
+										"{{categoryId}}"
+									]
+								},
+								"description": "카테고리 수정"
+							}
+						},
+						{
+							"name": "day3_class6_delete_category",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/categories/{{categoryId}}",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"categories",
+										"{{categoryId}}"
+									]
+								},
+								"description": "카테고리 삭제"
+							}
+						}
+					]
+				},
+				{
+					"name": "Error Cases",
+					"item": [
+						{
+							"name": "day3_class6_error_not_found",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "http://localhost:8080/api/products/999",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"products",
+										"999"
+									]
+								},
+								"description": "존재하지 않는 리소스 조회 (404 Not Found)"
+							}
+						},
+						{
+							"name": "day3_class6_error_validation",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"name\": \"\",\n  \"price\": -1000\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/products",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"products"
+									]
+								},
+								"description": "잘못된 입력값으로 생성 시도 (400 Bad Request)"
+							}
+						},
+						{
+							"name": "day3_class6_error_duplicate",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"username\": \"user1\",\n  \"email\": \"user1@example.com\",\n  \"name\": \"중복 사용자\"\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "http://localhost:8080/api/users",
+									"protocol": "http",
+									"host": [
+										"localhost"
+									],
+									"port": "8080",
+									"path": [
+										"api",
+										"users"
+									]
+								},
+								"description": "중복 데이터 생성 시도 (400 Bad Request)"
+							}
+						}
+					]
+				}
+			]
+		},
+		{
+			"name": "Day 3 Class 7 - GraphQL",
+			"item": [
+				{
+					"name": "GraphQL API",
+					"item": [
+						{
+							"name": "GraphQL Queries",
+							"item": [
+								{
+									"name": "day3_class7_graphql_get_product",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query {\n  product(id: 1) {\n    id\n    name\n    price\n    description\n    category {\n      id\n      name\n    }\n  }\n}"
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/graphql",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"graphql"
+											]
+										},
+										"description": "GraphQL: 제품 단일 조회"
+									}
+								},
+								{
+									"name": "day3_class7_graphql_get_products_list",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query {\n  products(page: 0, size: 10, sort: \"name,asc\") {\n    content {\n      id\n      name\n      price\n    }\n    page\n    size\n    totalElements\n    totalPages\n  }\n}"
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/graphql",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"graphql"
+											]
+										},
+										"description": "GraphQL: 제품 목록 조회 (페이징)"
+									}
+								},
+								{
+									"name": "day3_class7_graphql_get_user",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query {\n  user(id: 1) {\n    id\n    username\n    email\n    name\n  }\n}"
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/graphql",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"graphql"
+											]
+										},
+										"description": "GraphQL: 사용자 조회"
+									}
+								},
+								{
+									"name": "day3_class7_graphql_get_order",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query {\n  order(id: 1) {\n    id\n    orderNumber\n    totalAmount\n    orderDate\n    user {\n      id\n      username\n      name\n    }\n    items {\n      id\n      quantity\n      price\n      product {\n        id\n        name\n        price\n      }\n    }\n  }\n}"
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/graphql",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"graphql"
+											]
+										},
+										"description": "GraphQL: 주문 조회 (관계 포함)"
+									}
+								},
+								{
+									"name": "day3_class7_graphql_get_orders_by_user",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "query {\n  ordersByUser(userId: 1, page: 0, size: 10) {\n    content {\n      id\n      orderNumber\n      totalAmount\n      orderDate\n    }\n    totalElements\n  }\n}"
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/graphql",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"graphql"
+											]
+										},
+										"description": "GraphQL: 사용자별 주문 목록 조회"
+									}
+								}
+							]
+						},
+						{
+							"name": "GraphQL Mutations",
+							"item": [
+								{
+									"name": "day3_class7_graphql_create_product",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation {\n  createProduct(input: {\n    name: \"새 제품\"\n    price: 50000.0\n    categoryId: 1\n    description: \"테스트 제품\"\n  }) {\n    id\n    name\n    price\n  }\n}"
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/graphql",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"graphql"
+											]
+										},
+										"description": "GraphQL: 제품 생성"
+									}
+								},
+								{
+									"name": "day3_class7_graphql_update_product",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation {\n  updateProduct(id: 1, input: {\n    name: \"수정된 제품명\"\n    price: 60000.0\n  }) {\n    id\n    name\n    price\n  }\n}"
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/graphql",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"graphql"
+											]
+										},
+										"description": "GraphQL: 제품 수정"
+									}
+								},
+								{
+									"name": "day3_class7_graphql_delete_product",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation {\n  deleteProduct(id: 1)\n}"
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/graphql",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"graphql"
+											]
+										},
+										"description": "GraphQL: 제품 삭제"
+									}
+								},
+								{
+									"name": "day3_class7_graphql_create_user",
+									"request": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											}
+										],
+										"body": {
+											"mode": "graphql",
+											"graphql": {
+												"query": "mutation {\n  createUser(input: {\n    username: \"newuser\"\n    email: \"newuser@example.com\"\n    name: \"신규 사용자\"\n  }) {\n    id\n    username\n    email\n  }\n}"
+											}
+										},
+										"url": {
+											"raw": "http://localhost:8080/graphql",
+											"protocol": "http",
+											"host": [
+												"localhost"
+											],
+											"port": "8080",
+											"path": [
+												"graphql"
+											]
+										},
+										"description": "GraphQL: 사용자 생성"
+									}
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "productId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "userId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "orderId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "categoryId",
+			"value": "1",
+			"type": "string"
+		},
+		{
+			"key": "username",
+			"value": "user1",
+			"type": "string"
+		},
+		{
+			"key": "orderNumber",
+			"value": "ORD-001",
+			"type": "string"
+		}
+	]
+}
+

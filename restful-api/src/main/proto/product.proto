@@ -1,0 +1,91 @@
+syntax = "proto3";
+
+package com.example.restful.grpc;
+
+option java_multiple_files = true;
+option java_package = "com.example.restful.grpc";
+option java_outer_classname = "ProductProto";
+
+// 제품 서비스
+service ProductService {
+  // 제품 조회
+  rpc GetProduct (GetProductRequest) returns (ProductResponse);
+  
+  // 제품 목록 조회
+  rpc GetProducts (GetProductsRequest) returns (ProductListResponse);
+  
+  // 제품 생성
+  rpc CreateProduct (CreateProductRequest) returns (ProductResponse);
+  
+  // 제품 수정
+  rpc UpdateProduct (UpdateProductRequest) returns (ProductResponse);
+  
+  // 제품 삭제
+  rpc DeleteProduct (DeleteProductRequest) returns (DeleteProductResponse);
+}
+
+// 제품 조회 요청
+message GetProductRequest {
+  int64 id = 1;
+}
+
+// 제품 목록 조회 요청
+message GetProductsRequest {
+  int32 page = 1;
+  int32 size = 2;
+  string sort = 3;
+}
+
+// 제품 생성 요청
+message CreateProductRequest {
+  string name = 1;
+  double price = 2;
+  int64 category_id = 3;
+  string description = 4;
+}
+
+// 제품 수정 요청
+message UpdateProductRequest {
+  int64 id = 1;
+  string name = 2;
+  double price = 3;
+  int64 category_id = 4;
+  string description = 5;
+}
+
+// 제품 삭제 요청
+message DeleteProductRequest {
+  int64 id = 1;
+}
+
+// 제품 응답
+message ProductResponse {
+  int64 id = 1;
+  string name = 2;
+  double price = 3;
+  string description = 4;
+  optional CategoryInfo category = 5;
+}
+
+// 제품 목록 응답
+message ProductListResponse {
+  repeated ProductResponse products = 1;
+  int32 page = 2;
+  int32 size = 3;
+  int64 total_elements = 4;
+  int32 total_pages = 5;
+}
+
+// 제품 삭제 응답
+message DeleteProductResponse {
+  bool success = 1;
+  string message = 2;
+}
+
+// 카테고리 정보
+message CategoryInfo {
+  int64 id = 1;
+  string name = 2;
+  string description = 3;
+}
+

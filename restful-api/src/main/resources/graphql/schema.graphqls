@@ -1,0 +1,137 @@
+type Query {
+    # 제품 조회
+    product(id: ID!): Product
+    products(page: Int = 0, size: Int = 10, sort: String = "id,asc"): ProductPage
+    
+    # 사용자 조회
+    user(id: ID!): User
+    users(page: Int = 0, size: Int = 10): UserPage
+    
+    # 주문 조회
+    order(id: ID!): Order
+    orders(page: Int = 0, size: Int = 10): OrderPage
+    ordersByUser(userId: ID!, page: Int = 0, size: Int = 10): OrderPage
+    
+    # 카테고리 조회
+    category(id: ID!): Category
+    categories: [Category!]!
+}
+
+type Mutation {
+    # 제품 생성
+    createProduct(input: ProductInput!): Product!
+    
+    # 제품 수정
+    updateProduct(id: ID!, input: ProductUpdateInput!): Product!
+    
+    # 제품 삭제
+    deleteProduct(id: ID!): Boolean!
+    
+    # 사용자 생성
+    createUser(input: UserInput!): User!
+    
+    # 사용자 수정
+    updateUser(id: ID!, input: UserInput!): User!
+    
+    # 사용자 삭제
+    deleteUser(id: ID!): Boolean!
+}
+
+# 제품 타입
+type Product {
+    id: ID!
+    name: String!
+    price: Float!
+    description: String
+    category: Category
+}
+
+# 제품 페이지 타입
+type ProductPage {
+    content: [Product!]!
+    page: Int!
+    size: Int!
+    totalElements: Int!
+    totalPages: Int!
+    first: Boolean!
+    last: Boolean!
+}
+
+# 사용자 타입
+type User {
+    id: ID!
+    username: String!
+    email: String!
+    name: String!
+}
+
+# 사용자 페이지 타입
+type UserPage {
+    content: [User!]!
+    page: Int!
+    size: Int!
+    totalElements: Int!
+    totalPages: Int!
+    first: Boolean!
+    last: Boolean!
+}
+
+# 주문 타입
+type Order {
+    id: ID!
+    orderNumber: String!
+    user: User!
+    totalAmount: Float!
+    orderDate: String!
+    items: [OrderItem!]!
+}
+
+# 주문 항목 타입
+type OrderItem {
+    id: ID!
+    product: Product!
+    quantity: Int!
+    price: Float!
+}
+
+# 주문 페이지 타입
+type OrderPage {
+    content: [Order!]!
+    page: Int!
+    size: Int!
+    totalElements: Int!
+    totalPages: Int!
+    first: Boolean!
+    last: Boolean!
+}
+
+# 카테고리 타입
+type Category {
+    id: ID!
+    name: String!
+    description: String
+}
+
+# 제품 입력 타입
+input ProductInput {
+    name: String!
+    price: Float!
+    categoryId: ID
+    description: String
+}
+
+# 제품 수정 입력 타입
+input ProductUpdateInput {
+    name: String
+    price: Float
+    categoryId: ID
+    description: String
+}
+
+# 사용자 입력 타입
+input UserInput {
+    username: String!
+    email: String!
+    name: String!
+}
+

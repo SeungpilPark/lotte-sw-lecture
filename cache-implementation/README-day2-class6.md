@@ -35,7 +35,7 @@
 
 ## 사전 요구사항
 
-- **Java 21 이상**
+- **Java 17 이상**
 - **Gradle 8.5** (프로젝트에 Gradle Wrapper가 포함되어 있어 별도 설치 불필요)
 - **Redis** (선택사항 - Redis가 없어도 로컬 캐시로 동작)
 
@@ -336,7 +336,7 @@ POST http://localhost:8080/api/cache/orders/cache/evict
 ## 주요 의존성
 
 - **Gradle 8.5** (Gradle Wrapper 포함)
-- **Java 21**
+- **Java 17**
 - **Spring Boot 3.2.0**
 - Spring Data JPA
 - H2 Database

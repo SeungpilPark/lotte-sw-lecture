@@ -1,0 +1,80 @@
+syntax = "proto3";
+
+package com.example.restful.grpc;
+
+option java_multiple_files = true;
+option java_package = "com.example.restful.grpc";
+option java_outer_classname = "UserProto";
+
+// 사용자 서비스
+service UserService {
+  // 사용자 조회
+  rpc GetUser (GetUserRequest) returns (UserResponse);
+  
+  // 사용자 목록 조회
+  rpc GetUsers (GetUsersRequest) returns (UserListResponse);
+  
+  // 사용자 생성
+  rpc CreateUser (CreateUserRequest) returns (UserResponse);
+  
+  // 사용자 수정
+  rpc UpdateUser (UpdateUserRequest) returns (UserResponse);
+  
+  // 사용자 삭제
+  rpc DeleteUser (DeleteUserRequest) returns (DeleteUserResponse);
+}
+
+// 사용자 조회 요청
+message GetUserRequest {
+  int64 id = 1;
+}
+
+// 사용자 목록 조회 요청
+message GetUsersRequest {
+  int32 page = 1;
+  int32 size = 2;
+}
+
+// 사용자 생성 요청
+message CreateUserRequest {
+  string username = 1;
+  string email = 2;
+  string name = 3;
+}
+
+// 사용자 수정 요청
+message UpdateUserRequest {
+  int64 id = 1;
+  string username = 2;
+  string email = 3;
+  string name = 4;
+}
+
+// 사용자 삭제 요청
+message DeleteUserRequest {
+  int64 id = 1;
+}
+
+// 사용자 응답
+message UserResponse {
+  int64 id = 1;
+  string username = 2;
+  string email = 3;
+  string name = 4;
+}
+
+// 사용자 목록 응답
+message UserListResponse {
+  repeated UserResponse users = 1;
+  int32 page = 2;
+  int32 size = 3;
+  int64 total_elements = 4;
+  int32 total_pages = 5;
+}
+
+// 사용자 삭제 응답
+message DeleteUserResponse {
+  bool success = 1;
+  string message = 2;
+}
+
