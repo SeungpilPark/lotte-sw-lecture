@@ -1,6 +1,8 @@
 package com.example.performance.repository;
 
 import com.example.performance.entity.Order;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -29,4 +31,11 @@ public interface OrderRepository extends JpaRepository<Order, Long> {
            "JOIN FETCH i.product p " +
            "JOIN FETCH o.customer c")
     List<Order> findAllWithItems();
+    
+    /**
+     * 페이징을 적용한 주문 조회 (N+1 문제 방지)
+     * @EntityGraph로 관련 엔티티를 한 번에 조회
+     */
+    @EntityGraph(attributePaths = {"items", "items.product", "customer"})
+    Page<Order> findAll(Pageable pageable);
 }

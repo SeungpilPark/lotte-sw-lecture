@@ -52,6 +52,14 @@ public class OrderService {
     }
     
     /**
+     * 사용자별 주문 목록 조회 (캐시 없이) - 성능 비교용
+     */
+    public List<Order> findByUserIdWithoutCache(Long userId) {
+        log.debug("DB에서 사용자별 주문 목록 조회 (캐시 없음): userId={}", userId);
+        return orderRepository.findByUserId(userId);
+    }
+    
+    /**
      * 모든 주문 조회
      */
     public List<Order> findAll() {

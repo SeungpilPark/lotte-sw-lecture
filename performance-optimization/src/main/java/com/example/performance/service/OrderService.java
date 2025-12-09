@@ -6,6 +6,8 @@ import com.example.performance.entity.Order;
 import com.example.performance.entity.OrderItem;
 import com.example.performance.repository.OrderRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -81,5 +83,29 @@ public class OrderService {
                 return dto;
             })
             .collect(Collectors.toList());
+    }
+    
+    /**
+     * 페이징을 적용한 주문 조회 (최적화)
+     * @EntityGraph로 N+1 문제를 방지하고, 페이징으로 메모리 사용량 최적화
+     */
+    @Transactional(readOnly = true)
+    public Page<OrderDTO> getOrdersWithItemsPaged(Pageable pageable) {
+        // 페이징과 함께 @EntityGraph 적용
+        Page<Order> orderPage = orderRepository.findAll(pageable);
+        
+        // Page.map()을 사용하여 변환
+        return orderPage.map(order -> {
+            OrderDTO dto = new OrderDTO();
+            dto.setId(order.getId());
+            dto.setOrderNumber(order.getOrderNumber());
+            dto.setItems(order.getItems().stream()
+                .map(item -> new OrderItemDTO(
+                    item.getProduct().getName(), 
+                    item.getQuantity()
+                ))
+                .collect(Collectors.toList()));
+            return dto;
+        });
     }
 }

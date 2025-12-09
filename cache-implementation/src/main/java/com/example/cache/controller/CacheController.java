@@ -58,12 +58,32 @@ public class CacheController {
     }
     
     /**
+     * 가격 범위별 제품 조회
+     */
+    @GetMapping("/products/price-range")
+    public ResponseEntity<List<Product>> getProductsByPriceRange(
+            @RequestParam Double minPrice,
+            @RequestParam Double maxPrice) {
+        List<Product> products = productService.findByPriceRange(minPrice, maxPrice);
+        return ResponseEntity.ok(products);
+    }
+    
+    /**
      * 모든 제품 조회
      */
     @GetMapping("/products")
     public ResponseEntity<List<Product>> getAllProducts() {
         List<Product> products = productService.findAll();
         return ResponseEntity.ok(products);
+    }
+    
+    /**
+     * 제품 생성
+     */
+    @PostMapping("/products")
+    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
+        Product created = productService.create(product);
+        return ResponseEntity.ok(created);
     }
     
     // ========== 카테고리 관련 API ==========
@@ -196,6 +216,25 @@ public class CacheController {
         return ResponseEntity.ok(comparison);
     }
     
+    /**
+     * 사용자별 주문 목록 조회 성능 비교
+     */
+    @GetMapping("/performance/orders/user/{userId}")
+    public ResponseEntity<Map<String, Object>> compareOrdersPerformance(
+            @PathVariable Long userId,
+            @RequestParam(defaultValue = "100") int iterations) {
+        
+        CacheComparisonService.ComparisonResult comparison = 
+            cacheComparisonService.compareOrdersPerformance(userId, iterations);
+        
+        Map<String, Object> result = new HashMap<>();
+        result.put("withoutCache", comparison.getWithoutCache());
+        result.put("withCache", comparison.getWithCache());
+        result.put("improvement", comparison.getImprovement());
+        
+        return ResponseEntity.ok(result);
+    }
+    
     // ========== 캐시 메트릭 API ==========
     
     /**
@@ -205,7 +244,7 @@ public class CacheController {
     public ResponseEntity<Map<String, Object>> getCacheMetrics() {
         Map<String, Object> metrics = new HashMap<>();
         
-        String[] cacheNames = {"products", "categories", "users", "orders", "productByCategory"};
+        String[] cacheNames = {"products", "categories", "users", "orders", "productByCategory", "productsByPriceRange"};
         for (String cacheName : cacheNames) {
             Map<String, Object> cacheStats = new HashMap<>();
             cacheStats.put("hits", cacheMetrics.getHitCount(cacheName));

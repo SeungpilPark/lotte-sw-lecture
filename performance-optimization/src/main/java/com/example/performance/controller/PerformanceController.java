@@ -1,9 +1,13 @@
 package com.example.performance.controller;
 
 import com.example.performance.bottleneck.PerformanceBottleneck;
+import com.example.performance.dto.OrderDTO;
 import com.example.performance.monitor.PerformanceMonitor;
 import com.example.performance.service.*;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -124,5 +128,22 @@ public class PerformanceController {
         );
         
         return "병렬 처리 테스트 완료. 로그를 확인하세요.";
+    }
+    
+    /**
+     * 페이징을 적용한 주문 조회
+     */
+    @GetMapping("/orders/paged")
+    public Page<OrderDTO> getOrdersPaged(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        
+        Pageable pageable = PageRequest.of(page, size);
+        
+        // 성능 측정
+        return performanceMonitor.measureExecutionTime(
+            "페이징 주문 조회 (페이지: " + page + ", 크기: " + size + ")",
+            () -> orderService.getOrdersWithItemsPaged(pageable)
+        );
     }
 }

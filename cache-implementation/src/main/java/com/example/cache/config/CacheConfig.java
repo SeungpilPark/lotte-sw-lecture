@@ -42,6 +42,7 @@ public class CacheConfig {
             "users",              // 사용자 정보 캐시
             "orders",             // 주문 정보 캐시
             "productByCategory",  // 카테고리별 제품 목록 캐시
+            "productsByPriceRange", // 가격 범위별 제품 목록 캐시
             "cacheAsideProducts",    // Cache-Aside 패턴 캐시
             "writeThroughProducts",  // Write-Through 패턴 캐시
             "writeBackProducts",     // Write-Back 패턴 캐시
