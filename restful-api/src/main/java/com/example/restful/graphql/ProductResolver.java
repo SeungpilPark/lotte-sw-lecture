@@ -29,7 +29,11 @@ public class ProductResolver {
     public ProductPage products(
             @Argument Integer page,
             @Argument Integer size,
-            @Argument String sort) {
+            @Argument String sort,
+            @Argument String name,
+            @Argument Long categoryId,
+            @Argument Double minPrice,
+            @Argument Double maxPrice) {
         
         int pageNum = page != null ? page : 0;
         int pageSize = size != null ? size : 10;
@@ -42,7 +46,23 @@ public class ProductResolver {
             : Sort.Direction.ASC;
         
         Pageable pageable = PageRequest.of(pageNum, pageSize, Sort.by(direction, sortField));
-        Page<Product> productPage = productService.findAll(pageable);
+        
+        Page<Product> productPage;
+        
+        // 필터링 우선순위: name > categoryId > minPrice/maxPrice > 전체 조회
+        if (name != null && !name.isEmpty()) {
+            // 제품명으로 검색
+            productPage = productService.findByNameContaining(name, pageable);
+        } else if (categoryId != null) {
+            // 카테고리로 필터링
+            productPage = productService.findByCategoryId(categoryId, pageable);
+        } else if (minPrice != null && maxPrice != null) {
+            // 가격 범위로 필터링
+            productPage = productService.findByPriceRange(minPrice, maxPrice, pageable);
+        } else {
+            // 전체 조회
+            productPage = productService.findAll(pageable);
+        }
         
         return ProductPage.from(productPage);
     }

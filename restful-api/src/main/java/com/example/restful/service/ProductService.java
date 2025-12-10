@@ -40,6 +40,11 @@ public class ProductService {
         return productRepository.findByNameContaining(name, pageable);
     }
     
+    // 제품명 또는 설명에서 검색
+    public Page<Product> searchByNameOrDescription(String keyword, Pageable pageable) {
+        return productRepository.searchByNameOrDescription(keyword, pageable);
+    }
+    
     public Page<Product> findByCategoryId(Long categoryId, Pageable pageable) {
         return productRepository.findByCategoryId(categoryId, pageable);
     }
@@ -48,8 +53,14 @@ public class ProductService {
         return productRepository.findByCategoryId(categoryId);
     }
     
+    // 기존 메서드 (페이징 미지원)
     public List<Product> findByPriceRange(Double minPrice, Double maxPrice) {
         return productRepository.findByPriceRange(minPrice, maxPrice);
+    }
+    
+    // 가격 범위 필터링 (페이징 지원)
+    public Page<Product> findByPriceRange(Double minPrice, Double maxPrice, Pageable pageable) {
+        return productRepository.findByPriceRange(minPrice, maxPrice, pageable);
     }
     
     @Transactional

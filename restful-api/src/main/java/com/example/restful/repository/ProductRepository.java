@@ -21,8 +21,16 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     @Query("SELECT p FROM Product p WHERE p.price BETWEEN :minPrice AND :maxPrice")
     List<Product> findByPriceRange(@Param("minPrice") Double minPrice, @Param("maxPrice") Double maxPrice);
     
+    // 가격 범위 필터링 (페이징 지원)
+    @Query("SELECT p FROM Product p WHERE p.price BETWEEN :minPrice AND :maxPrice")
+    Page<Product> findByPriceRange(@Param("minPrice") Double minPrice, @Param("maxPrice") Double maxPrice, Pageable pageable);
+    
     @Query("SELECT p FROM Product p WHERE p.name LIKE %:name%")
     Page<Product> findByNameContaining(@Param("name") String name, Pageable pageable);
+    
+    // 제품명 또는 설명에서 검색 (페이징 지원)
+    @Query("SELECT p FROM Product p WHERE p.name LIKE %:keyword% OR p.description LIKE %:keyword%")
+    Page<Product> searchByNameOrDescription(@Param("keyword") String keyword, Pageable pageable);
     
     @Query("SELECT p FROM Product p WHERE p.category.id = :categoryId")
     Page<Product> findByCategoryId(@Param("categoryId") Long categoryId, Pageable pageable);

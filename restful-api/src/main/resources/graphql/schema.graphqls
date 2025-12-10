@@ -1,7 +1,15 @@
 type Query {
     # 제품 조회
     product(id: ID!): Product
-    products(page: Int = 0, size: Int = 10, sort: String = "id,asc"): ProductPage
+    products(
+        page: Int = 0, 
+        size: Int = 10, 
+        sort: String = "id,asc",
+        name: String,
+        categoryId: ID,
+        minPrice: Float,
+        maxPrice: Float
+    ): ProductPage
     
     # 사용자 조회
     user(id: ID!): User
